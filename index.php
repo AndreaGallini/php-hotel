@@ -38,20 +38,33 @@ $hotels = [
     ],
 
 ];
-if (isset($_GET['park']) && !empty($_GET['park']) || isset($_GET['vote']) && !empty($_GET['vote'])) {
-    $scelta = $_GET['park'];
-    $stelle = $_GET['vote'];
-    $tempArray = [];
+
+$scelta = $_GET['park'];
+$stelle = $_GET['vote'];
+$tempArray = [];
+
+if (!empty($_GET['park']) and !empty($_GET['vote'])) {
+
 
     foreach ($hotels as $hotel) {
-        if ($hotel['parking'] === $scelta && $hotel['vote'] === $stelle) {
+
+        if ($hotel['parking'] === $scelta and $hotel['vote'] == $stelle) {
             $tempArray[] = $hotel;
         }
     }
-
     $hotels = $tempArray;
+} else if (!empty($_GET['park']) xor !empty($_GET['vote'])) {
 
+    foreach ($hotels as $hotel) {
+
+        if ($hotel['parking'] === $scelta xor $hotel['vote'] == $stelle) {
+
+            $tempArray[] = $hotel;
+        }
+    }
+    $hotels = $tempArray;
 }
+
 
 
 ?>
@@ -78,7 +91,7 @@ if (isset($_GET['park']) && !empty($_GET['park']) || isset($_GET['vote']) && !em
                 <p>Scegli con o senza parcheggio</p>
                 <select name="park" id="">
                     <option value="">Parcheggio?</option>
-                    <option value="Yes">Con parcheggio</option>
+                    <option value="Si">Con parcheggio</option>
                     <option value="No">Senza parcheggio</option>
 
                 </select>
