@@ -4,14 +4,14 @@ $hotels = [
     [
         'name' => 'Hotel Belvedere',
         'description' => 'Hotel Belvedere Descrizione',
-        'parking' => 'Yes',
+        'parking' => 'Si',
         'vote' => 4,
         'distance_to_center' => 10.4
     ],
     [
         'name' => 'Hotel Futuro',
         'description' => 'Hotel Futuro Descrizione',
-        'parking' => 'Yes',
+        'parking' => 'Si',
         'vote' => 2,
         'distance_to_center' => 2
     ],
@@ -32,21 +32,25 @@ $hotels = [
     [
         'name' => 'Hotel Milano',
         'description' => 'Hotel Milano Descrizione',
-        'parking' => 'Yes',
+        'parking' => 'Si',
         'vote' => 2,
         'distance_to_center' => 50
     ],
 
 ];
-if (isset($_GET['park']) && !empty($_GET['park'])) {
+if (isset($_GET['park']) && !empty($_GET['park']) || isset($_GET['vote']) && !empty($_GET['vote'])) {
     $scelta = $_GET['park'];
+    $stelle = $_GET['vote'];
     $tempArray = [];
+
     foreach ($hotels as $hotel) {
-        if ($hotel['parking'] === $scelta) {
+        if ($hotel['parking'] === $scelta && $hotel['vote'] === $stelle) {
             $tempArray[] = $hotel;
         }
     }
+
     $hotels = $tempArray;
+
 }
 
 
@@ -68,24 +72,33 @@ if (isset($_GET['park']) && !empty($_GET['park'])) {
 </head>
 
 <body>
-    <div class="container">
-        <form action="index.php" method="get">
-            <p>Scegli con o senza parcheggio</p>
-            <select name="park" id="">
-                <option value="">Scegli</option>
-                <option value="Yes">Con parcheggio</option>
-                <option value="No">Senza parcheggio</option>
+    <div class="my-container">
+        <div class="form">
+            <form action="index.php" method="get">
+                <p>Scegli con o senza parcheggio</p>
+                <select name="park" id="">
+                    <option value="">Parcheggio?</option>
+                    <option value="Yes">Con parcheggio</option>
+                    <option value="No">Senza parcheggio</option>
 
-
-            </select>
-            <button type="submit">Cerca</button>
-        </form>
-        <div class="row">
+                </select>
+                <select name="vote" id="">
+                    <option value="">Numero di stelle</option>
+                    <option value="1"> 1 Stella</option>
+                    <option value="2"> 2 Stelle</option>
+                    <option value="3"> 3 Stelle</option>
+                    <option value="4"> 4 Stelle</option>
+                    <option value="5"> 5 Stelle</option>
+                </select>
+                <button class="btn btn-primary" type="submit">Cerca</button>
+            </form>
+        </div>
+        <div class="row my-row">
             <?php
             foreach ($hotels as $hotel) {
 
             ?>
-            <div class="col-4 my-card">
+            <div class=" my-card col-12">
                 <h2>
                     <?php echo $hotel['name'] ?>
 
